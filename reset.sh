@@ -1,8 +1,8 @@
 #!/bin/sh
 
 handy_ip=55.149.1.68
+node_ip=(55.149.1.69 55.149.1.70 55.149.1.83) # 节点列表
 
-node_ip=(55.149.1.69 55.149.1.70 55.149.1.83)
 echo "[INFO]Handy ip: $handy_ip"
 echo "[INFO]Node ip :"
 
