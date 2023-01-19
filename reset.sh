@@ -94,7 +94,8 @@ echo '[INFO]Datebase initialization complete'
 echo '[INFO]start tgt_db_reset...'
 mariadbsql -p27HbZwr*g -A < "tgt_db_reset.sql"
 sleep 2
-
+rm -f /etc/keepalived/keepalived.conf
+service keepalived stop
 echo '[INFO]restart tgt...'
 service tgt restart
 for var in ${node_ip[@]}
