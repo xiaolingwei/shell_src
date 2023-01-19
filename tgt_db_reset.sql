@@ -12,3 +12,5 @@ delete from tgt_lun_target;
 delete from tgt_node_status;
 delete from tgt_target;
 delete from tgt_host;
+delete from tgt_ha_slaves;
+delete from tgt_ha_info;
