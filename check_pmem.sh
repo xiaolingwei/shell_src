@@ -3,7 +3,7 @@
 # 功能: 检查pmem状态
 
 echo "[INFO] The state of PMEM regions are:"
-ipmictl show -region
+ipmctl show -region
 
 echo "[INFO] The namespaces of PMEM are:"
 ndctl list --human
@@ -44,7 +44,7 @@ then
         echo "[INFO] Exit"
 else
         echo "ndctl destroy-namespace all"
-        ndctl destroy-namespace all
+        ndctl destroy-namespace all --force
         sleep 2
         echo "ipmctl delete goal"
         ipmctl delete goal
@@ -53,4 +53,3 @@ else
         ipmctl create -goal
         echo "[INFO] The PMEM have been reset."
 fi
-
