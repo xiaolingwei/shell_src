@@ -91,8 +91,21 @@ mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from op_cluster_pool"
 sleep 2
 echo '[INFO]Datebase initialization complete'
 
-echo '[INFO]start tgt_db_reset...'
-mariadbsql -p27HbZwr*g -A < "tgt_db_reset.sql"
+echo '[INFO]start reset tgt db...'
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_ha_info"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_ha_slaves"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_chap"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_chap_initiator"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_hg_host"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_ha_info"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_host_group
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_host_group_relate_port"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_initiator"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_initiator_mapping"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_lun_mapping"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_lun_target"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_node_status"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_target"
 sleep 2
 rm -f /etc/keepalived/keepalived.conf
 service keepalived stop
