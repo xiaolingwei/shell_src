@@ -1,7 +1,7 @@
 #!/bin/sh
 
 handy_ip=55.149.1.68
-node_ip=(55.149.1.69 55.149.1.70 55.149.1.83) # 节点列表
+node_ip=(55.149.1.69 55.149.1.70 55.149.1.70) # 节点列表
 
 echo "[INFO]Handy ip: $handy_ip"
 echo "[INFO]Node ip :"
@@ -98,7 +98,7 @@ mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_chap"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_chap_initiator"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_hg_host"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_ha_info"
-mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_host_group
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_host_group"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_host_group_relate_port"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_initiator"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_initiator_mapping"
