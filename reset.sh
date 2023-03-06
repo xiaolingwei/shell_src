@@ -1,7 +1,7 @@
 #!/bin/sh
 
-handy_ip=55.149.1.68
-node_ip=(55.149.1.69 55.149.1.70 55.149.1.70) # 节点列表
+handy_ip=55.149.1.83
+node_ip=(55.149.1.83 55.149.1.85 55.149.1.86) # 节点列表
 
 echo "[INFO]Handy ip: $handy_ip"
 echo "[INFO]Node ip :"
@@ -97,7 +97,6 @@ mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_ha_slaves"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_chap"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_chap_initiator"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_hg_host"
-mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_ha_info"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_host_group"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_host_group_relate_port"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_initiator"
@@ -106,16 +105,20 @@ mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_lun_mapping"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_lun_target"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_node_status"
 mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_target"
+mariadbsql -ucalamari -p27HbZwr*g calamari -e "delete from tgt_host"
 sleep 2
 rm -f /etc/keepalived/keepalived.conf
 service keepalived stop
+for var in ${node_ip[@]}
+do
+ssh -q root@$var "rm -f /etc/keepalived/keepalived.conf"
+ssh -q root@$var "service keepalived stop"
+done
+
 echo '[INFO]restart tgt...'
 service tgt restart
 for var in ${node_ip[@]}
 do
 ssh -q root@$var "service tgt restart"
 done
-
 echo '[INFO]OK! Now you can operate the cluster'
-
-
