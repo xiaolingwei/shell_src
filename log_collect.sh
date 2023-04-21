@@ -25,13 +25,13 @@ function check_node {
 
 # 收集日志
 function log_coll {
-        now_time=$1
-        mkdir -p "/root/log_collect/log_bak_$now_time"
+        log_dir_name=$1
+        mkdir -p "/root/$log_dir_name"
 
-        cp /var/log/messages /root/log_collect/log_bak_$now_time/
-        cp -r /var/log/daos/ /root/log_collect/log_bak_$now_time/
-        cp -r /var/log/storage/ /root/log_collect/log_bak_$now_time/
-        cp -r /etc/daos/ /root/log_collect/log_bak_$now_time/
+        cp /var/log/messages /root/$log_dir_name/
+        cp -r /var/log/daos/ /root/$log_dir_name/
+        cp -r /var/log/storage/ /root/$log_dir_name/
+        cp -r /etc/daos/ /root/$log_dir_name/
 
 }
 
@@ -57,19 +57,19 @@ function log_status {
 check_node
 if (($? == 0)); then
         # 获取当前时间
-        now_time=`date "+%Y%m%d_%H_%M_%S"`
+        read -p "Please input log dir name:" log_dir_name
 
         # ssh到远端执行log_coll收集日志函数
-        ssh root@$node1 "$(typeset -f log_coll); log_coll $now_time"
+        ssh root@$node1 "$(typeset -f log_coll); log_coll $log_dir_name"
         echo "[INFO]log collected at remote $node1"
-        ssh root@$node2 "$(typeset -f log_coll); log_coll $now_time"
+        ssh root@$node2 "$(typeset -f log_coll); log_coll $log_dir_name"
         echo "[INFO]log collected at remote $node2"
 
         # 本地收集日志
-        log_coll $now_time
+        log_coll $log_dir_name
         echo "[INFO]log collected at local host"
         # 本地收集集群状态
-        log_status /root/log_collect/log_bak_$now_time/daos_status
+        log_status /root/$log_dir_name/daos_status
         echo "[INFO]log collected success"
 else
         echo "[ERROR]Please execute at handy node." # 不是handy node 提示
